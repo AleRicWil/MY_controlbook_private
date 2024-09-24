@@ -25,8 +25,9 @@ while t < P.t_end:  # main simulation loop
     ref = np.array([[0], [0], [0]])
     force = 0
     torque = 0
+    pwms = np.array([[force], [torque]])
     animation.update(t, state)
-    dataPlot.update(t, state, ref, force, torque)
+    dataPlot.update(t, state, pwms, ref)
 
     t = t + P.t_plot  # advance time by t_plot
     plt.pause(0.05)
