@@ -2,7 +2,7 @@
 Class that implements a SISO transfer function
 """
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.p
 
 class transferFunction:
     def __init__(self, num, den, Ts):
