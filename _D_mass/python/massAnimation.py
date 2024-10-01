@@ -7,13 +7,13 @@ import massParam as P
 # try using one of the following backends.
 # See https://matplotlib.org/stable/users/explain/backends.html
 import matplotlib
-# matplotlib.use('qtagg')  # requires pyqt or pyside
+matplotlib.use('qtagg')  # requires pyqt or pyside
 # matplotlib.use('ipympl')  # requires ipympl
 # matplotlib.use('gtk3agg')  # requires pyGObject and pycairo
 # matplotlib.use('gtk4agg')  # requires pyGObject and pycairo
 # matplotlib.use('gtk3cairo')  # requires pyGObject and pycairo
 # matplotlib.use('gtk4cairo')  # requires pyGObject and pycairo
-matplotlib.use('tkagg')  # requires TkInter
+# matplotlib.use('tkagg')  # requires TkInter
 # matplotlib.use('wxagg')  # requires wxPython
 
 def exit_program(event):

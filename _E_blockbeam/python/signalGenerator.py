@@ -20,7 +20,7 @@ class signalGenerator:
         return out
 
     def step(self, t):
-        if t >= 0.0:
+        if t >= 1 and t<=1.1:
             out = self.amplitude + self.y_offset
         else:
             out = self.y_offset

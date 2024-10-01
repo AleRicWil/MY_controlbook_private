@@ -7,7 +7,7 @@ from massDynamics import massDynamics
 
 # instantiate arm, controller, and reference classes
 mass = massDynamics()
-fSig = signalGenerator(amplitude=100, frequency=0.08)
+fSig = signalGenerator(amplitude=1, frequency=0.1)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
@@ -20,7 +20,7 @@ while t < P.t_end:  # main simulation loop
     # updates control and dynamics at faster simulation rate
     while t < t_next_plot:  
         # Get referenced inputs from signal generators
-        f = fSig.step(t)        
+        f = fSig.sin(t)        
         y = mass.update(f)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts
     
