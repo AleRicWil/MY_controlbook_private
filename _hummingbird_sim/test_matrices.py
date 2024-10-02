@@ -21,8 +21,8 @@ Author: Benjamin Arnesen
 
 Version: 1.0
 """
-
-from hummingbird_dynamics_solution import HummingbirdDynamics
+from hummingbirdDynamics import HummingbirdDynamics 
+# from hummingbird_dynamics_solution import HummingbirdDynamics
 from typing import Type
 import numpy as np
 import pickle

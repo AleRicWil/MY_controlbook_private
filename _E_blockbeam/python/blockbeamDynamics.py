@@ -53,7 +53,7 @@ class blockbeamDynamics:
                       [-a-b+c]])
         # print(M.shape,C.shape) 
         accels = np.linalg.inv(M) @ C
-        zddot = 0#accels[0][0]
+        zddot = accels[0][0]
         thetaddot = accels[1][0]
         # build xdot and return
         xdot = np.array([[zdot], [thetadot], [zddot], [thetaddot]])

@@ -1,6 +1,6 @@
 # use this file to test your dynamics file
 import numpy as np
-from VTOLDynamics import Dynamics as dynamics
+from VTOLDynamics import VTOLDynamics as dynamics
 import VTOLParam as P
 import testCases as TC
 

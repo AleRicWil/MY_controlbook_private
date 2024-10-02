@@ -8,7 +8,7 @@ phidot0 = 0.0              # roll rate in rads/sec
 thetadot0 = 0.0         # pitch rate in rads/sec
 psidot0 = 0.0              # yaw rate in rads/sec
 # Physical parameters of the hummingbird known to the controller
-g = 9.81        # m/s^s
+g = 9.8        # m/s^s
 ell1 = 0.247    # m
 ell2 = -0.039   # m
 ell3x = -0.007  # m
@@ -28,7 +28,7 @@ m3 = 0.1905     # hg
 J3x = 0.0002222
 J3y = 0.0001956
 J3z = 0.000027
-km = g * (m1 * ell1 + m2 * ell2) / ellT  # need to find this experimentally for hardware
+km = 1# g * (m1 * ell1 + m2 * ell2) / ellT  # need to find this experimentally for hardware
 
 # mixing matrix
 unmixing = np.array([[1.0, 1.0], [d, -d]]) # converts fl and fr (LR) to force and torque (FT)
@@ -38,7 +38,7 @@ mixing = np.linalg.inv(unmixing) # converts force and torque (FT) to fl and fr (
 t_start = 0.0  # Start time of simulation
 t_end = 10.0  # End time of simulation
 Ts = 0.01  # sample time for simulation
-t_plot = 0.1  # the plotting and animation is updated at this rate
+t_plot = 0.05  # the plotting and animation is updated at this rate
 # saturation limits
 force_max = 2.0                # Max force N
 torque_max = 5.0                # Max torque, Nm

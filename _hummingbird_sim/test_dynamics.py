@@ -1,7 +1,7 @@
 # use this file to test your dynamics file
 import numpy as np
-# from hummingbirdDynamics import HummingbirdDynamics as dynamics
-from hummingbird_dynamics_solution import HummingbirdDynamics as dynamics
+from hummingbirdDynamics import HummingbirdDynamics as dynamics
+# from hummingbird_dynamics_solution import HummingbirdDynamics as dynamics
 import hummingbirdParam as P
 import testCases as TC
 import test_matrices as tm
