@@ -41,7 +41,7 @@ class HummingbirdDynamics:
         # This is the external method that takes the input u at time
         # t and returns the output y at time t.
         # saturate the input force
-        # u = saturate(u, P.torque_max)
+        u = saturate(u, P.torque_max)
         self.rk4_step(u)  # propagate the state by one time sample
         y = self.h()  # return the corresponding output
         return y
@@ -64,7 +64,7 @@ class HummingbirdDynamics:
         tau = self._tau(state, force, torque)
         B = self._B()
 
-        qddot = np.linalg.inv(M) @ (-C - partialP + tau - B * state[3:6])
+        qddot = np.linalg.inv(M) @ (-C - partialP + tau - B @ state[3:6])
         
         phiddot = qddot[0][0]
         thetaddot = qddot[1][0]
@@ -83,8 +83,8 @@ class HummingbirdDynamics:
         # FIXME Fill in this function
         # return y = h(x)
         phi = self.state[0][0]
-        theta = [1][0]
-        psi = [2][0]
+        theta = self.state[1][0]
+        psi = self.state[2][0]
         y = np.array([[phi], [theta], [psi]])
         return y
 
@@ -131,24 +131,11 @@ class HummingbirdDynamics:
         thetadot = state[4][0]
         psidot = state[5][0]
 
-        N33 = (self.J1x + self.J2x - self.m1*self.ell1**2 - self.m2*self.ell2**2 - self.J2z \
-               - self.J1y*np.sin(phi)**2 - self.J1z*np.cos(phi)**2) \
-               * 2*np.sin(theta)*np.cos(theta)
+        N33 = (self.J1x + self.J2x - self.m1*self.ell1**2 - self.m2*self.ell2**2 - self.J2z - self.J1y*np.sin(phi)**2 - self.J1z*np.cos(phi)**2) * 2*np.sin(theta)*np.cos(theta)
         # Return the C matrix
-        return np.array([[(self.J1y - self.J1z)*np.sin(phi)*np.cos(phi)*(thetadot**2 - np.cos(theta)**2*psidot**2) \
-                          + np.cos(theta)*thetadot*psidot*((self.J1y - self.J1z)*(np.cos(phi)**2 - np.sin(phi)**2) \
-                                                           - self.J1x)],
-
-             [2*(self.J1z - self.J1y)*np.sin(phi)*np.cos(phi)*phidot*thetadot \
-            + np.cos(theta)*phidot*psidot*((self.J1y - self.J1z)*(np.cos(phi)**2 - np.sin(phi)**2) \
-                                            + self.J1x) - 0.5*N33*psidot**2],
-
-             [(self.J1z - self.J1y)*thetadot**2*np.sin(phi)*np.cos(phi)*np.sin(theta) \
-            + (self.J1z - self.J1y)*np.sin(phi)*np.cos(phi)*np.sin(theta)*thetadot**2 \
-            + (self.J1y - self.J1z)*2*np.sin(phi)*np.cos(phi)*phidot*psidot \
-            + 2*np.sin(theta)*np.cos(theta)*thetadot*psidot*(-self.m1*self.ell1**2 - self.m2*self.ell2**2 \
-                                                             - self.J2z + self.J1x + self.J2x \
-                                                             + self.J1y*np.sin(phi)**2 + self.J1z*np.sin(phi)**2)]])
+        return np.array([[(self.J1y - self.J1z)*np.sin(phi)*np.cos(phi)*(thetadot**2 - np.cos(theta)**2*psidot**2) + np.cos(theta)*thetadot*psidot*((self.J1y - self.J1z)*(np.cos(phi)**2 - np.sin(phi)**2) - self.J1x)],
+                         [2*(self.J1z - self.J1y)*np.sin(phi)*np.cos(phi)*phidot*thetadot + np.cos(theta)*phidot*psidot*((self.J1y - self.J1z)*(np.cos(phi)**2 - np.sin(phi)**2) + self.J1x) - 0.5*N33*psidot**2],
+                         [(self.J1z - self.J1y)*thetadot**2*np.sin(phi)*np.cos(phi)*np.sin(theta) + np.cos(theta)*phidot*thetadot*((self.J1y - self.J1z)*(np.cos(phi)**2 - np.sin(phi)**2) - self.J1x) + (self.J1z - self.J1y)*np.sin(phi)*np.cos(phi)*np.sin(theta)*thetadot**2 + (self.J1y - self.J1z)*2*np.sin(phi)*np.cos(phi)*phidot*psidot + 2*np.sin(theta)*np.cos(theta)*thetadot*psidot*(-self.m1*self.ell1**2 - self.m2*self.ell2**2  - self.J2z + self.J1x + self.J2x + self.J1y*np.sin(phi)**2 + self.J1z*np.sin(phi)**2)]])
         
     def _partialP(self, state: np.ndarray):
         # FIXME Fill in this function
@@ -191,13 +178,15 @@ class HummingbirdDynamics:
 
         # Return the tau matrix
         return np.array([[torque],
-                        [self.ellT*np.cos(phi)*force],
-                        [self.ellT*np.cos(theta)*np.sin(phi)*force - np.sin(theta)*torque]])
+                         [self.ellT*np.cos(phi)*force],
+                         [self.ellT*np.cos(theta)*np.sin(phi)*force - np.sin(theta)*torque]])
     
     def _B(self):
         # FIXME Fill in this function
         # This needs no variables from the state
-        B = np.array([0.001])
+        B = np.array([[0.001, 0, 0],
+                      [0, 0.001, 0],
+                      [0, 0, 0.001]])
         # Return the B matrix
         return B
 
