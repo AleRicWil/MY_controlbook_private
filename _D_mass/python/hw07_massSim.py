@@ -7,6 +7,7 @@ from dataPlotter import dataPlotter
 from massDynamics import massDynamics
 from massCtrlPD import massCtrlPD
 
+
 # instantiate arm, controller, and reference classes
 mass = massDynamics()
 controller = massCtrlPD()
@@ -25,7 +26,7 @@ while t < P.t_end:  # main simulation loop
     while t < t_next_plot:  
         # Get referenced inputs from signal generators
         z_ref = z_refSig.square(t)      
-        u = massCtrlPD.update(z_ref, y)
+        u = controller.update(z_r=z_ref, state=y)
         y = mass.update(u)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts
     
