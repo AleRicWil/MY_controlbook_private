@@ -10,7 +10,7 @@ from massCtrlPD import massCtrlPD
 # instantiate arm, controller, and reference classes
 mass = massDynamics()
 controller = massCtrlPD()
-z_refSig = signalGenerator(amplitude=1, frequency=0.01)
+z_refSig = signalGenerator(amplitude=1, frequency=0.07)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
@@ -24,7 +24,7 @@ while t < P.t_end:  # main simulation loop
     # updates control and dynamics at faster simulation rate
     while t < t_next_plot:  
         # Get referenced inputs from signal generators
-        z_ref = z_refSig.square(t)        
+        z_ref = z_refSig.square(t)      
         u = massCtrlPD.update(z_ref, y)
         y = mass.update(u)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts

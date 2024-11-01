@@ -22,18 +22,17 @@ class massCtrlPD:
     def update(z_r, x):
         z = x[0][0]
         zdot = x[1][0]
-        kp = 3.0476
-        kd = 7.1985
-        alph = 1.05
-        bet = 1.1
+        kp = 3.1#3.05
+        kd = 7.7#7.20
+        
         # compute the force using PD control
         f_equil = P.k * z_r
-        f_gain = kp*alph * (z_r - z) - kd*bet * zdot
+        f_gain = kp * (z_r - z) - kd * zdot
 
         return saturate(f_equil + f_gain)
     
 def saturate(f):
-    if abs(f) >= 6:
+    if abs(f) > 6:
         f = 6*np.sign(f)
         print('sat')
     return f

@@ -27,7 +27,7 @@ class ctrlEquilibrium:
 
         phi = y[0][0]
         theta = y[1][0]
-        print(theta*180/np.pi)
+        # print(theta*180/np.pi)
         psi = y[2][0]
 
         force_equilibrium = (P.m1*P.ell1 + P.m2*P.ell2)*P.g / P.ellT

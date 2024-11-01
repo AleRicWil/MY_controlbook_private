@@ -30,6 +30,7 @@ while t < P.t_end:  # main simulation loop
     while t < t_next_plot:
         # u = controller.update(x_eqlbm)
         u = controller.update2(x_eqlbm, y)
+        
         y = hummingBird.update(u)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts
     # update animation and data plots at rate t_plot

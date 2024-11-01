@@ -10,7 +10,7 @@ class signalGenerator:
         if t % (1.0/self.frequency) <= 0.5/self.frequency:
             out = self.amplitude + self.y_offset
         else:
-            out = - self.amplitude + self.y_offset
+            out = 0#- self.amplitude + self.y_offset
         return out
 
     def sawtooth(self, t):
