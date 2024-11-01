@@ -29,13 +29,10 @@ while t < P.t_end:  # main simulation loop
         u = controller.update(z_r=z_ref, state=y)
         y = mass.update(u)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts
-    
     # update animation and data plots
     animation.update(mass.state)
     dataPlot.update(t, mass.state, u, z_ref)
-
-    # the pause causes the figure to be displayed during the simulation
-    plt.pause(0.0001)  
+    plt.pause(0.0001)  # allows time for animation to draw
 
 # Keeps the program from closing until the user presses a button.
 print('Press key to close')
