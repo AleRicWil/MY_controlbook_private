@@ -2,7 +2,7 @@
 import numpy as np
 # Initial Conditions
 phi0 = 0.0 * np.pi / 180  # roll angle in rads
-theta0 = 10.0 * np.pi / 180  # pitch angle in rads
+theta0 = 0.0 * np.pi / 180  # pitch angle in rads
 psi0 = 0.0 * np.pi / 180  # yaw angle in rads
 phidot0 = 0.0              # roll rate in rads/sec
 thetadot0 = 0.0         # pitch rate in rads/sec

@@ -1,6 +1,5 @@
 import numpy as np
 import hummingbirdParam as P
-from hummingbirdDynamics import HummingbirdDynamics as HD
 
 class ctrlEquilibrium:
     def __init__(self):
