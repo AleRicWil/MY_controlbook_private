@@ -26,6 +26,7 @@ t_plot = 0.1  # the plotting and animation is updated at this rate
 
 # saturation limits
 F_max = 15   # Max Force, N
+Theta_max = 0.08*np.pi/180
 
 # dirty derivative parameters
 # sigma =   # cutoff freq for dirty derivative
