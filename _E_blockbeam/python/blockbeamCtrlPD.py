@@ -4,26 +4,26 @@ import blockbeamParam as P
 class blockbeamCtrlPD:
     def __init__(self, alpha=0.0):
         # Desired responses
-        tr_i = 0.2 # s, inner loop rise time
-        zeta_i = 1/np.sqrt(2) # inner damping ratio
-        natFreq_i = np.pi / (2*tr_i*np.sqrt(1-zeta_i**2))
+        tr_th = 0.2 # s, inner loop rise time
+        zeta_th = 1/np.sqrt(2) # inner damping ratio
+        natFreq_th = np.pi / (2*tr_th*np.sqrt(1-zeta_th**2))
 
-        tr_o = 10*tr_i # s, outer loop rise time
-        zeta_o = 1/np.sqrt(2) # outer damping ratio
-        natFreq_o = np.pi / (2*tr_o*np.sqrt(1-zeta_o**2))
+        tr_z = 10*tr_th # s, outer loop rise time
+        zeta_z = 1/np.sqrt(2) # outer damping ratio
+        natFreq_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2))
         # Define PD characteristic polynomical
-        b0i = P.length / ((P.m2*P.length**2/3) + P.m1*P.z0**2)
+        b0_th = P.length / ((P.m2*P.length**2/3) + P.m1*P.z0**2)
         a0i = 0.0
         a1i = 0.0
 
-        b0o = -P.g
+        b0_z = -P.g
         a0o = 0.0
         a1o = 0.0
         # Solve for gains
-        self.kp_th = (natFreq_i**2 -a0i) / b0i #1.8251
-        self.kd_th = (2*zeta_i*natFreq_i -a1i) / b0i #1.173
-        self.kp_z = (natFreq_o**2 -a0o) / b0o #-0.0049
-        self.kd_z = (2*zeta_o*natFreq_o -a1o) / b0o #-0.0317
+        self.kp_th = (natFreq_th**2 -a0i) / b0_th #1.8251
+        self.kd_th = (2*zeta_th*natFreq_th -a1i) / b0_th #1.173
+        self.kp_z = (natFreq_z**2 -a0o) / b0_z #-0.0049
+        self.kd_z = (2*zeta_z*natFreq_z -a1o) / b0_z #-0.0317
         self.m1 = P.m1
         self.m2 = P.m2
         self.L = P.length

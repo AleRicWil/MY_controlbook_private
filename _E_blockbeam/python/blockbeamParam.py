@@ -6,7 +6,7 @@ import numpy as np
 m1 = 0.35  # Mass of the block, kg
 m2 = 2  # mass of beam, kg
 length = 0.5  # length of beam, m
-g = 9.8  # gravity at sea level, m/s^2
+g = 9.81  # gravity at sea level, m/s^2
 
 # parameters for animation
 width = 0.05  # width of block

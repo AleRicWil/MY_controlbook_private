@@ -41,14 +41,14 @@ class ctrlStateFeedback:
 
     def update(self, z_r, state):
         z = state[0][0]
-        # compute feedback linearizing torque tau_fl
-        F_fl = 0
+        # compute equilibrium force
+        F_e = 0
 
         # Compute the state feedback controller
         F_tilde = -self.K @ state + self.kr * z_r
 
         # compute total torque
-        tau = saturate(F_fl + F_tilde[0][0], P.F_max)
+        tau = saturate(F_e + F_tilde[0][0], P.F_max)
 
         return tau
 
