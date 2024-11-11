@@ -8,7 +8,7 @@ from blockbeamDynamics import blockbeamDynamics
 from blockbeamCtrlPID import blockbeamCtrlPID
 
 # instantiate pendulum, controller, and reference classes
-blockbeam = blockbeamDynamics(alpha=0.0)
+blockbeam = blockbeamDynamics(alpha=0.2)
 controller = blockbeamCtrlPID()
 z_refSig = signalGenerator(amplitude=0.15, frequency=0.03, y_offset=P.z0)
 

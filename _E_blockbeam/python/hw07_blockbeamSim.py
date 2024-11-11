@@ -10,14 +10,15 @@ from blockbeamCtrlPD import blockbeamCtrlPD
 # instantiate pendulum, controller, and reference classes
 blockbeam = blockbeamDynamics(alpha=0.0)
 controller = blockbeamCtrlPD()
-z_refSig = signalGenerator(amplitude=0.15, frequency=0.1, y_offset=P.length/2)
+z_refSig = signalGenerator(amplitude=0.15, frequency=0.03, y_offset=P.length/2)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
 animation = blockbeamAnimation()
 
-t = P.t_start  # time starts at t_start
+# initial conditions
 y = np.array([[P.z0], [P.theta0], [P.zdot0], [P.thetadot0]])
+t = P.t_start
 while t < P.t_end:  # main simulation loop
     # Propagate dynamics at rate Ts
     t_next_plot = t + P.t_plot

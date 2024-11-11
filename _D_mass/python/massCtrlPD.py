@@ -3,33 +3,35 @@ import massParam as P
 
 class massCtrlPD:
     def __init__(self, alpha=0.0):
-        # Declare pole locations
-        # p1 = -3
-        # p2 = -4
-        # alpha0 = (-p1) * (-p2) # Coefficient in front of s^0 in desired characteristic equation
-        # alpha1 = (-p1) + (-p2) # Coefficient in front of s^1 in desired characteristic equation
-        # b0 = 3 / (P.m * P.ell**2)
-        # a0 = 0.0
-        # a1 = 3 * P.b / (P.m * P.ell**2)
-        self.kp = 3.05#(alpha0 - a0) / b0
-        self.kd = 7.2#(alpha1 - a1) / b0
+        # Desired responses
+        tr_z = 2.0 # s, inner loop rise time
+        zeta_z = 1/np.sqrt(2) # inner damping ratio
+        wn_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2))
+        # Initialize self.
+        self.m = P.m
         self.k = P.k
+        self.b = P.b
         self.F_max = P.F_max
-        # PD gains
-        print('kp: ', self.kp)
-        print('kd: ', self.kd)
+        # Define PID characteristic polynomial
+        b0_z = 1 / self.m
+        a0_z = self.k / self.m
+        a1_z = self.b / self.m
+        # PID gains
+        self.kp_z = (wn_z**2 -a0_z) / b0_z 
+        self.kd_z = (2*zeta_z*wn_z -a1_z) / b0_z
+        print('kp: ', self.kp_z)
+        print('kd: ', self.kd_z)
 
 
     def update(self, z_r, state):
         z = state[0][0]
         zdot = state[1][0]
-        kp = 3.1#3.05
-        kd = 7.7#7.20
         
         # compute the force using PD control
-        tau_equil = self.k * z_r
-        tau_tilde = self.kp * (z_r - z) - self.kd * zdot
-        tau = saturate(tau_equil + tau_tilde, self.F_max)
+        F_e = self.k * z_r
+        F_tilde = self.kp_z * (z_r - z) - self.kd_z * zdot
+        tau = saturate(F_e + F_tilde, self.F_max)
+
         return tau
     
 def saturate(u, limit):

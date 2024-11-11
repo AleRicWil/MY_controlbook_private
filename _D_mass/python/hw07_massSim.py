@@ -11,14 +11,14 @@ from massCtrlPD import massCtrlPD
 # instantiate arm, controller, and reference classes
 mass = massDynamics()
 controller = massCtrlPD()
-z_refSig = signalGenerator(amplitude=1, frequency=0.07)
+z_refSig = signalGenerator(amplitude=1, frequency=0.03)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
 animation = massAnimation()
 
-t = P.t_start  # time starts at t_start
 y = np.array([[P.z0], [P.zdot0]])
+t = P.t_start
 while t < P.t_end:  # main simulation loop
     # Propagate dynamics in between plot samples
     t_next_plot = t + P.t_plot

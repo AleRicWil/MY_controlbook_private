@@ -5,19 +5,18 @@ import massParam as P
 class ctrlStateFeedback:
     # dirty derivatives to estimate thetadot
     def __init__(self, alpha=0.0):
-        #  tuning parameters
-        tr = 2.0
-        zeta = 0.707
-
+        #  Response tuning
+        tr_z = 2.0 # s, inner loop rise time
+        zeta_z = 1/np.sqrt(2) # inner damping ratio
+        wn_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2))
+        # Initialize Self
         self.m = P.m
         self.k = P.k
         self.b = P.b
-
-        # gain calculation
-        wn = 2.2 / tr  # natural frequency
-        des_char_poly = [1, 2 * zeta * wn, wn**2]
+        # Gain Calculation
+        des_char_poly = [1, 2 * zeta_z * wn_z, wn_z**2]
         des_poles = np.roots(des_char_poly)
-        #des_poles = [-50.0, -50.1]
+        
 
         # State Space Equations
         # xdot = A*x + B*u

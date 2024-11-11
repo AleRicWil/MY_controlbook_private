@@ -11,7 +11,7 @@ from massCtrlPID import massCtrlPID
 # instantiate arm, controller, and reference classes
 mass = massDynamics(alpha=0.5)
 controller = massCtrlPID()
-z_refSig = signalGenerator(amplitude=1, frequency=0.02)
+z_refSig = signalGenerator(amplitude=1, frequency=0.03)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
