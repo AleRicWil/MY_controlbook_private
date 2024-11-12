@@ -5,19 +5,20 @@ from signalGenerator import signalGenerator
 from blockbeamAnimation import blockbeamAnimation
 from dataPlotter import dataPlotter
 from blockbeamDynamics import blockbeamDynamics
-from BLOCKBEAMctrlStateFeedback import ctrlStateFeedback
+from BLOCKBEAMctrlStateFeedback import ctrlStateFeedbackPD
 
 # instantiate pendulum, controller, and reference classes
 blockbeam = blockbeamDynamics(alpha=0.0)
-controller = ctrlStateFeedback()
-z_refSig = signalGenerator(amplitude=0.15, frequency=0.03, y_offset=P.z0)
+controller = ctrlStateFeedbackPD()
+z_refSig = signalGenerator(amplitude=0.15, frequency=0.08, y_offset=P.z0)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()
 animation = blockbeamAnimation()
 
+
+y = blockbeam.h() # [[P.z0], [P.theta0], [P.zdot0], [P.thetadot0]]
 t = P.t_start  # time starts at t_start
-y = np.array([[P.z0], [P.theta0], [P.zdot0], [P.thetadot0]])
 while t < P.t_end:  # main simulation loop
     # Propagate dynamics at rate Ts
     t_next_plot = t + P.t_plot

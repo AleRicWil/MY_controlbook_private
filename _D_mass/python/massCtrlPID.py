@@ -28,11 +28,11 @@ class massCtrlPID:
         # dirty derivative and integrator
         self.sigma = 0.02
 
-        self.z_dot = P.zdot0  # estimated derivative of z
-        self.z_d1 = P.z0  # theta delayed by one sample
-        self.error_dot = 0.0  # estimated derivative of error
-        self.error_d1 = 0.0  # Error delayed by one sample
-        self.integrator = 0.0  # integrator
+        self.z_dot = P.zdot0    # estimated derivative of z
+        self.z_d1 = P.z0        # z delayed by one sample
+        self.error_z_dot = 0.0  # estimated derivative of z error
+        self.error_z_d1 = 0.0   # z error delayed by one sample
+        self.integrator_z = 0.0 # z integrator
 
     def update(self, z_ref, state):
         z = state[0][0]
@@ -40,24 +40,24 @@ class massCtrlPID:
         '''PID control for (z_ref - z) to F'''
         # Calc z PID parameters
             # Proportional
-        error = z_ref - z
+        error_z = z_ref - z
             # dirty dertivative
         self.z_dot = (2.0*self.sigma - P.Ts) / (2.0*self.sigma + P.Ts) * self.z_dot \
                      + (2.0 / (2.0*self.sigma + P.Ts)) * ((z - self.z_d1))
             # anti-windup integral
         if abs(self.z_dot) < self.zdot_min:
-            self.integrator = self.integrator + (P.Ts / 2) * (error + self.error_d1)
-            print(self.integrator)
+            self.integrator_z = self.integrator_z + (P.Ts / 2) * (error_z + self.error_z_d1)
+            print(self.integrator_z)
         else:
             print('.')
         # F from z PID control
         F_e = self.k * z_ref
-        F_tilde = self.kp_z*error + self.ki_z*self.integrator - self.kd_z*self.z_dot
+        F_tilde = self.kp_z*error_z + self.ki_z*self.integrator_z - self.kd_z*self.z_dot
         
         tau = saturate(F_e + F_tilde, self.F_max)
         
         '''update delayed variables'''
-        self.error_d1 = error
+        self.error_z_d1 = error_z
         self.z_d1 = z
         
         return tau

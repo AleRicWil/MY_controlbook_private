@@ -5,12 +5,12 @@ from signalGenerator import signalGenerator
 from massAnimation import massAnimation
 from dataPlotter import dataPlotter
 from massDynamics import massDynamics
-from MASSctrlStateFeedback import ctrlStateFeedback
+from MASSctrlStateFeedback import ctrlStateFeedbackPD
 
 
 # instantiate arm, controller, and reference classes
 mass = massDynamics(alpha=0.0)
-controller = ctrlStateFeedback()
+controller = ctrlStateFeedbackPD()
 z_refSig = signalGenerator(amplitude=1, frequency=0.05)
 
 # instantiate the simulation plots and animation

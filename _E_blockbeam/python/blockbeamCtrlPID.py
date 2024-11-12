@@ -6,11 +6,11 @@ class blockbeamCtrlPID:
         # Desired responses
         tr_th = 0.2 # s, inner loop rise time
         zeta_th = 1/np.sqrt(2) # inner damping ratio
-        natFreq_th = np.pi / (2*tr_th*np.sqrt(1-zeta_th**2))
+        wn_th = np.pi / (2*tr_th*np.sqrt(1-zeta_th**2))
 
         tr_z = 10*tr_th # s, outer loop rise time
         zeta_z = 1/np.sqrt(2) # outer damping ratio
-        natFreq_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2))
+        wn_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2))
         # Initialize Self
         self.m1 = P.m1
         self.m2 = P.m2
@@ -27,10 +27,10 @@ class blockbeamCtrlPID:
         a0_z = 0.0
         a1_z = 0.0
         # PID gains
-        self.kp_th = (natFreq_th**2 -a0_th) / b0_th          
-        self.kd_th = (2*zeta_th*natFreq_th -a1_th) / b0_th    
-        self.kp_z = (natFreq_z**2 -a0_z) / b0_z          
-        self.kd_z = (2*zeta_z*natFreq_z -a1_z) / b0_z     
+        self.kp_th = (wn_th**2 -a0_th) / b0_th          
+        self.kd_th = (2*zeta_th*wn_th -a1_th) / b0_th    
+        self.kp_z = (wn_z**2 -a0_z) / b0_z          
+        self.kd_z = (2*zeta_z*wn_z -a1_z) / b0_z     
         self.ki_z = -0.06
         self.zdot_min = 0.03    # anti-windup threshold
         print('kp_th: ', self.kp_th)
@@ -80,7 +80,7 @@ class blockbeamCtrlPID:
         self.theta_dot = (2.0*self.sigma - P.Ts) / (2.0*self.sigma + P.Ts) * self.theta_dot \
             + (2.0 / (2.0*self.sigma + P.Ts)) * ((theta - self.theta_d1))
         
-        # F from theta PD control
+        # F from theta PD control, F_tilde = F - F_e
         F_e = (self.m1*z + self.m2*self.L/2)*self.g / self.L
         F_tilde = self.kp_th*error_th - self.kd_th*self.theta_dot
         
