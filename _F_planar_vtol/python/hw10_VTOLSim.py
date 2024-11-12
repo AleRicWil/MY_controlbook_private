@@ -5,13 +5,13 @@ from signalGenerator import signalGenerator
 from VTOLAnimation import VTOLAnimation
 from dataPlotter import dataPlotter
 from VTOLDynamics import VTOLDynamics
-from VTOLCtrlPD import VTOLCtrlPD
+from VTOLCtrlPID import VTOLCtrlPID
 
 # instantiate VTOL, controller, and reference classes
-VTOL = VTOLDynamics(alpha=0.0)
-controller = VTOLCtrlPD()
-z_refSig = signalGenerator(amplitude=1, frequency=0.05, y_offset=P.z0)
-h_refSig = signalGenerator(amplitude=1, frequency=0.1, y_offset=P.h0)
+VTOL = VTOLDynamics(alpha=0.2)
+controller = VTOLCtrlPID()
+z_refSig = signalGenerator(amplitude=2, frequency=0.05, y_offset=P.z0)
+h_refSig = signalGenerator(amplitude=1, frequency=0.03, y_offset=P.h0)
 
 # instantiate the simulation plots and animation
 dataPlot = dataPlotter()

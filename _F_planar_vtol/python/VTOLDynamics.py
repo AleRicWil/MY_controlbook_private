@@ -58,7 +58,7 @@ class VTOLDynamics:
                       [0, self.mc + 2*self.mr, 0],
                       [0, 0, self.Jc + 2*self.d**2*self.mr]])
         #RHS
-        C = np.array([[-self.mu*zdot - (F_r+F_L)*np.sin(theta)],
+        C = np.array([[-self.mu*zdot - (F_r+F_L)*np.sin(theta) + P.F_wind],
                       [(F_r+F_L)*np.cos(theta) - (self.mc + 2*self.mr)*self.g],
                       [(F_r-F_L)*self.d]])
         # print(M.shape,C.shape) 

@@ -8,13 +8,13 @@ class VTOLCtrlPD:
         zeta_h = 1/np.sqrt(2) # longitudinal damping ration
         wn_h = np.pi / (2*tr_h*np.sqrt(1-zeta_h**2)) # longitudinal nat freq
 
-        tr_th = 0.1 # s, lateral inner loop rise time
+        tr_th = 0.15 # s, lateral inner loop rise time
         zeta_th = 1/np.sqrt(2) # lateral inner damping ratio
         wn_th = np.pi / (2*tr_th*np.sqrt(1-zeta_th**2)) # lateral inner nat freq
 
-        tr_z = 15*tr_th # s, lateral outer loop rise time
-        zeta_z = 1/np.sqrt(2) # lateral outer damping ratio
-        natFreq_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2)) # lateral outer nat frew
+        tr_z = 12*tr_th # s, lateral outer loop rise time
+        zeta_z = 0.85#1/np.sqrt(2) # lateral outer damping ratio
+        natFreq_z = np.pi / (2*tr_z*np.sqrt(1-zeta_z**2)) # lateral outer nat freq
         # Initialize Self
         self.Jc = P.Jc
         self.mc = P.mc
