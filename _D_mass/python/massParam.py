@@ -11,8 +11,8 @@ length = 5.0
 width = 1.0
 
 # Initial Conditions
-z0 = 0  # initial position of mass, m
-zdot0 = 0  # initial velocity of mass m/s
+z0 = 0.0  # initial position of mass, m
+zdot0 = 0.0  # initial velocity of mass m/s
 
 # Simulation Parameters
 t_start = 0 # Start time of simulation

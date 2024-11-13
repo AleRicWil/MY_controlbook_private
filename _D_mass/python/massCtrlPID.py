@@ -27,10 +27,8 @@ class massCtrlPID:
         
         # dirty derivative and integrator
         self.sigma = 0.02
-
         self.z_dot = P.zdot0    # estimated derivative of z
         self.z_d1 = P.z0        # z delayed by one sample
-        self.error_z_dot = 0.0  # estimated derivative of z error
         self.error_z_d1 = 0.0   # z error delayed by one sample
         self.integrator_z = 0.0 # z integrator
 
