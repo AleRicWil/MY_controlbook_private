@@ -78,7 +78,7 @@ class VTOLDynamics:
         zdot = self.state[3][0]
         hdot = self.state[4][0]
         thetadot = self.state[5][0]
-        y = [[z],[h],[theta],[zdot],[hdot],[thetadot]]
+        y = np.array([[z],[h],[theta]])#,[zdot],[hdot],[thetadot]])
         return y
 
     def rk4_step(self, u):
