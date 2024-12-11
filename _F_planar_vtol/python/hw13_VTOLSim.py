@@ -27,7 +27,7 @@ while t < P.t_end:  # main simulation loop
     t_next_plot = t + P.t_plot
     while t < t_next_plot:
         z_ref = z_refSig.square(t)
-        h_ref = P.h0#h_refSig.square(t)
+        h_ref = h_refSig.square(t)
         u, state_hat = controller.update([[z_ref], [h_ref]], y)
         y = VTOL.update(u)  # Propagate the dynamics
         t += P.Ts  # advance time by Ts

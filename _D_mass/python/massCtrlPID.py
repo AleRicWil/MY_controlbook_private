@@ -26,7 +26,7 @@ class massCtrlPID:
         print('kd: ', self.kd_z)
         
         # dirty derivative and integrator
-        self.sigma = 0.02
+        self.sigma = 0.05
         self.z_dot = P.zdot0    # estimated derivative of z
         self.z_d1 = P.z0        # z delayed by one sample
         self.error_z_d1 = 0.0   # z error delayed by one sample

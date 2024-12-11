@@ -47,7 +47,7 @@ class VTOLCtrlPID:
         self.kd_z = (2*zeta_z*wn_z -a1_z) / b0_z    
         self.ki_h = 1.5
         self.hdot_min = 0.1
-        self.ki_z = -0.03
+        self.ki_z = 0.0#-0.03
         self.zdot_min = 0.2
         print('kp_h: ', self.kp_h)
         print('ki_h: ', self.ki_h)
@@ -59,7 +59,7 @@ class VTOLCtrlPID:
         print('kd_z: ', self.kd_z)
 
         # dirty derivative and integrator
-        self.sigma = 0.01
+        self.sigma = 0.05
 
         self.h_dot = P.hdot0            # estimated derivated of h
         self.z_dot = P.zdot0            # estimated derivative of z
@@ -121,7 +121,6 @@ class VTOLCtrlPID:
            #print('.')
            pass
 
-        # theta_ref from z PID control
         theta_ref = self.kp_z*error_z + self.ki_z*self.integrator_z - self.kd_z*self.z_dot
         theta_ref = saturate_theta(theta_ref, self.theta_max)
 

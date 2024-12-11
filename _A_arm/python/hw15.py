@@ -1,5 +1,6 @@
 # Single link arm Parameter File
 import armParam as P
+import numpy as np
 from control import tf, bode
 import matplotlib.pyplot as plt
 
@@ -14,8 +15,10 @@ Plant = tf([3.0/P.m/P.ell**2],   #numerator
 if __name__ == '__main__':
     # Bode plot for the plant
     fig = plt.figure()
-    bode(Plant, dB=dB_flag, margins=False)
+    omega = np.logspace(-2, 2, 100)
+    bode(Plant, dB=True, omega=omega, margins=False)
     fig.axes[0].set_title('P(s) for arm')
+    
 
     # if you want specific values at specific frequencies, you can
     # do the following (but the magnitudes are absolute, not dB)
